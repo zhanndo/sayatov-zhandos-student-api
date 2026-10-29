@@ -1,0 +1,41 @@
+name: sayatov-zhandos-student-api
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: sayatov-zhandos-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-studentdb}
+      POSTGRES_USER: ${POSTGRES_USER:-sayatov_zhandos}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me}
+    volumes:
+      - sayatov-zhandos-pgdata:/var/lib/postgresql/data
+    networks:
+      - sayatov-zhandos-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    image: sayatov-zhandos-student-api:v1.0-sayatov-zhandos
+    container_name: sayatov-zhandos-app
+    ports:
+      - "8081:8080"   # 8080 on the Mac is used by Jenkins
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-studentdb}   # "db" = service name, not localhost
+      DB_USER: ${POSTGRES_USER:-sayatov_zhandos}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-change_me}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - sayatov-zhandos-net
+
+volumes:
+  sayatov-zhandos-pgdata:
+
+networks:
+  sayatov-zhandos-net:

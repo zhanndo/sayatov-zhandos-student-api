@@ -1,0 +1,11 @@
+# Build output
+build/
+.gradle/
+# Secrets: database passwords live only in .env
+.env
+# Logs
+*.log
+# IDE / macOS
+.idea/
+*.iml
+.DS_Store
