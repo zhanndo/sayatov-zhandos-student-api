@@ -21,7 +21,7 @@ class StudentApiTests {
     void homePageShowsAuthor() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.author").value("Wrong Name"));
+                .andExpect(jsonPath("$.author").value("Zhandos Sayatov"));
     }
 
     @Test
