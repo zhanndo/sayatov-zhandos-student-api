@@ -8,7 +8,7 @@ pipeline {
         // JDK 21 installed by Homebrew together with Jenkins
         JAVA_HOME  = '/opt/homebrew/opt/openjdk@21'
         // docker + docker-credential-desktop live in /usr/local/bin
-        PATH       = "/opt/homebrew/opt/openjdk@21/bin:/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        PATH       = "/opt/homebrew/opt/openjdk@21/bin:/Users/zhandos/.docker/bin:/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
     }
 
     triggers {
