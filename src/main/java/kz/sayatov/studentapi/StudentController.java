@@ -22,6 +22,12 @@ public class StudentController {
         return repository.findAll();
     }
 
+    // READ (improved): search students by last name, e.g. /api/students/search?lastName=Sayatov
+    @GetMapping("/search")
+    public List<Student> searchByLastName(@RequestParam String lastName) {
+        return repository.findByLastNameContainingIgnoreCase(lastName);
+    }
+
     // READ one
     @GetMapping("/{id}")
     public Student getById(@PathVariable Long id) {
